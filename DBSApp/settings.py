@@ -85,22 +85,12 @@ DATABASES = {
     'db': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.getenv("DB"),
-        'USER': os.getenv("USERNAME"),
-        'PASSWORD': os.getenv("PASSWORD"),
-        'HOST': os.getenv("HOST"),
+        'USER': os.getenv("DBUSER"),
+        'PASSWORD': os.getenv("DBPASS"),
+        'HOST': os.getenv("DBHOST"),
         'PORT': os.getenv("DBPORT")
-    },
-    'dbTest': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dota2',
-        'USER': 'xlukacs',
-        'PASSWORD': 'Horonyleila63',
-        'HOST': '147.175.150.216',
-        'PORT': '5432'
     }
 }
-
-#print(DATABASES, os.getenv("DB"), os.getenv("USERNAME"))
 
 
 # Password validation

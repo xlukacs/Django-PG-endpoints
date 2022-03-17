@@ -12,7 +12,7 @@ def dictfetchall(cursor):
     ]
 
 def zad2(request):
-    with connections['dbTest'].cursor() as cursor:
+    with connections['db'].cursor() as cursor:
         cursor.execute("SELECT VERSION();")
         version = cursor.fetchone()
         cursor.execute("SELECT pg_database_size('dota2')/1024/1024 as dota2_db_size;")
@@ -30,12 +30,12 @@ def zad2(request):
     return HttpResponse(JsonResponse(JSON), content_type="application/json")
 
 def patches(request):
-    with connections['dbTest'].cursor() as cursor:
+    with connections['db'].cursor() as cursor:
         cursor.execute(     "SELECT p1.name AS patch_version," +
                                     "CAST(EXTRACT(epoch FROM p1.release_date) AS int) AS patch_start_date," +
                                     "CAST(EXTRACT(epoch FROM p2.release_date) AS int) AS patch_end_date," +
                                     "matches.id AS match_id," +
-                                    "ROUND(CAST(matches.duration AS numeric)/60, 2) AS duration " +
+                                    "CAST(ROUND(CAST(matches.duration AS numeric)/60, 2) AS float) AS duration " +
                                     
                             "FROM patches AS p1 LEFT JOIN patches AS p2 ON p1.id=p2.id-1" +
                             "LEFT JOIN matches ON matches.start_time BETWEEN " +
@@ -84,7 +84,7 @@ def patches(request):
     return HttpResponse(JsonResponse(JSON), status=200)
 
 def xp(request, player_id):
-    with connections['dbTest'].cursor() as cursor:
+    with connections['db'].cursor() as cursor:
         cursor.execute(
             "SELECT  players.id," +   
                     "COALESCE(players.nick,'unknown') AS player_nick," +
@@ -130,7 +130,7 @@ def xp(request, player_id):
     return HttpResponse(JsonResponse(JSON), status=200)
 
 def objectives(request, player_id):
-    with connections['dbTest'].cursor() as cursor:
+    with connections['db'].cursor() as cursor:
         cursor.execute(
             "SELECT DISTINCT " +
                     "players.id," +
@@ -200,7 +200,7 @@ def objectives(request, player_id):
     return HttpResponse(JsonResponse(JSON), status=200)
 
 def abilities(request, player_id):
-    with connections['dbTest'].cursor() as cursor:
+    with connections['db'].cursor() as cursor:
         cursor.execute(
             "SELECT DISTINCT " +
                     "players.id," +
