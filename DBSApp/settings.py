@@ -27,7 +27,8 @@ SECRET_KEY = 'django-insecure-pfl76e6=mgube-jx%p8yz85rkbo%756812yxoyiw3%0%ic6fgt
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'fiit-dbs-xlukacs-app-k7uy6.ondigitalocean.app'
+    'fiit-dbs-xlukacs-app-k7uy6.ondigitalocean.app',
+    '127.0.0.1'
 ]
 
 
@@ -88,8 +89,18 @@ DATABASES = {
         'PASSWORD': os.getenv("PASSWORD"),
         'HOST': os.getenv("HOST"),
         'PORT': os.getenv("DBPORT")
+    },
+    'dbTest': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dota2',
+        'USER': 'xlukacs',
+        'PASSWORD': 'Horonyleila63',
+        'HOST': '147.175.150.216',
+        'PORT': '5432'
     }
 }
+
+#print(DATABASES, os.getenv("DB"), os.getenv("USERNAME"))
 
 
 # Password validation
